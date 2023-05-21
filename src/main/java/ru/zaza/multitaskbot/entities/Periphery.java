@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Perifery")
+@Table(name = "Periphery")
 @Getter
 @Setter
 public class Periphery {
