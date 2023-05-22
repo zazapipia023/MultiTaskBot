@@ -37,7 +37,7 @@ public class MessageHandler implements Handler {
         }
 
         String text = update.getMessage().getText();
-        return text.startsWith("/start");
+        return text.startsWith(Commands.START_COMMAND) || commands.containsKey(text);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MessageHandler implements Handler {
         Long chatId = message.getChatId();
         String text = message.getText();
 
-        if (text.startsWith("/start")) {
+        if (text.startsWith(Commands.START_COMMAND)) {
             startCommand.execute(chatId);
         } else if (commands.containsKey(text)) {
             commands.get(text).execute(chatId);
