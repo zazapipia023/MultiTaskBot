@@ -2,9 +2,7 @@ package ru.zaza.multitaskbot.commands.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import ru.zaza.multitaskbot.commands.Command;
-import ru.zaza.multitaskbot.commands.Commands;
 import ru.zaza.multitaskbot.services.TelegramService;
 
 @Component

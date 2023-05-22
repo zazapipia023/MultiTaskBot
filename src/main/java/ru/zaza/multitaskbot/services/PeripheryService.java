@@ -11,12 +11,15 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class PeripheryService {
-
     private final PeripheryRepository peripheryRepository;
 
     @Autowired
     public PeripheryService(PeripheryRepository peripheryRepository) {
         this.peripheryRepository = peripheryRepository;
+    }
+
+    public static PeripheryService getInstance() {
+        return this;
     }
 
     public Periphery findOne(int id) {

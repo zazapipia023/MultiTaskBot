@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.commands.Commands;
+import ru.zaza.multitaskbot.commands.impl.AddPeripheryCommand;
 import ru.zaza.multitaskbot.commands.impl.StartCommand;
 import ru.zaza.multitaskbot.handlers.Handler;
 
@@ -16,18 +17,22 @@ import java.util.Map;
 public class MessageHandler implements Handler {
 
     private final StartCommand startCommand;
+    private final AddPeripheryCommand addPeripheryCommand;
 
     private final Map<String, Command<Long>> commands = createCommandHandlers();
 
     private Map<String, Command<Long>> createCommandHandlers() {
         Map<String, Command<Long>> result = new HashMap<>();
 
+        result.put(Commands.ADD_PERIPHERY_COMMAND, addPeripheryCommand::execute);
+
         return result;
     }
 
     @Autowired
-    public MessageHandler(StartCommand startCommand) {
+    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand) {
         this.startCommand = startCommand;
+        this.addPeripheryCommand = addPeripheryCommand;
     }
 
     @Override
@@ -37,6 +42,8 @@ public class MessageHandler implements Handler {
         }
 
         String text = update.getMessage().getText();
+        System.out.println(commands.containsKey(text));
+        System.out.println(commands.get(text));
         return text.startsWith(Commands.START_COMMAND) || commands.containsKey(text);
     }
 
