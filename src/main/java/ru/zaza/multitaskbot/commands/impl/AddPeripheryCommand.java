@@ -10,15 +10,11 @@ import ru.zaza.multitaskbot.services.TelegramService;
 @Component
 public class AddPeripheryCommand implements Command<Long> {
 
-    private static final AddPeripheryCommand INSTANCE = new AddPeripheryCommand();
-
-    private final PeripheryService peripheryService;
     private final TelegramService telegramService;
 
-    private AddPeripheryCommand() {}
-
-    public static AddPeripheryCommand getInstance() {
-        return INSTANCE;
+    @Autowired
+    public AddPeripheryCommand(TelegramService telegramService) {
+        this.telegramService = telegramService;
     }
 
     @Override
