@@ -13,18 +13,21 @@ public class UpdateHandler implements Handler {
 
 
     private final MessageHandler messageHandler;
+    private final ActionHandler actionHandler;
 
     private Set<Handler> getHandlers() {
         Set<Handler> result = new LinkedHashSet<>();
 
         result.add(messageHandler);
+        result.add(actionHandler);
 
         return result;
     }
 
     @Autowired
-    public UpdateHandler(MessageHandler messageHandler) {
+    public UpdateHandler(MessageHandler messageHandler, ActionHandler actionHandler) {
         this.messageHandler = messageHandler;
+        this.actionHandler = actionHandler;
     }
 
     @Override

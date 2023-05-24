@@ -9,6 +9,7 @@ import ru.zaza.multitaskbot.repositories.RepairPeripheryRepository;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 public class RepairPeripheryService {
 
     private final RepairPeripheryRepository peripheryRepository;

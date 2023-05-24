@@ -19,20 +19,19 @@ public class MessageHandler implements Handler {
     private final StartCommand startCommand;
     private final AddPeripheryCommand addPeripheryCommand;
 
-    private final Map<String, Command<Long>> commands = createCommandHandlers();
+    private Map<String, Command<Long>> commands;
 
-    private Map<String, Command<Long>> createCommandHandlers() {
-        Map<String, Command<Long>> result = new HashMap<>();
+    private void createCommandHandlers() {
+        commands = new HashMap<>();
 
-        result.put(Commands.ADD_PERIPHERY_COMMAND, addPeripheryCommand::execute);
-
-        return result;
+        commands.put(Commands.ADD_PERIPHERY_COMMAND, addPeripheryCommand);
     }
 
     @Autowired
     public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand) {
         this.startCommand = startCommand;
         this.addPeripheryCommand = addPeripheryCommand;
+        createCommandHandlers();
     }
 
     @Override
@@ -42,8 +41,6 @@ public class MessageHandler implements Handler {
         }
 
         String text = update.getMessage().getText();
-        System.out.println(commands.containsKey(text));
-        System.out.println(commands.get(text));
         return text.startsWith(Commands.START_COMMAND) || commands.containsKey(text);
     }
 

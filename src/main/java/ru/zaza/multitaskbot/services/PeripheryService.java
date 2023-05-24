@@ -18,10 +18,6 @@ public class PeripheryService {
         this.peripheryRepository = peripheryRepository;
     }
 
-    public static PeripheryService getInstance() {
-        return this;
-    }
-
     public Periphery findOne(int id) {
         Optional<Periphery> foundPeriphery = peripheryRepository.findById(id);
         return foundPeriphery.orElse(new Periphery());
