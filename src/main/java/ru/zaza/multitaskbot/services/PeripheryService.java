@@ -20,7 +20,7 @@ public class PeripheryService {
 
     public Periphery findOne(int id) {
         Optional<Periphery> foundPeriphery = peripheryRepository.findById(id);
-        return foundPeriphery.orElse(new Periphery());
+        return foundPeriphery.orElse(null);
     }
 
     @Transactional

@@ -35,8 +35,16 @@ public class ActionHandler implements Handler {
         User user = userService.findOne(chatId);
         String action = user != null ? user.getAction() : null;
 
+
         if ("add_periphery".equals(action)) {
             addPeripheryAction.execute(chatId, text);
+            user.setAction("none"); // TODO: if serial_num is not correct, should be add_periphery action
+            userService.save(user);
+        }
+        if ("add_periphery_name".equals(action)) {
+            addPeripheryAction.execute(chatId, text);
+            user.setAction("add_periphery");
+            userService.save(user);
         } else if ("delete_periphery".equals(action)) {
             // TODO: deletePeripheryAction.execute(chatId, text);
         }

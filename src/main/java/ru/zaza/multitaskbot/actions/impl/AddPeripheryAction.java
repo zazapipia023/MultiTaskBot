@@ -16,6 +16,8 @@ public class AddPeripheryAction implements Action {
     private final PeripheryService peripheryService;
     private final TelegramService telegramService;
 
+    private String peripheryName;
+
     private static final Pattern SERIAL_NUMBER_PATTERN = Pattern.compile("[a-zA-Z0-9]{12}");
 
     @Autowired
@@ -25,15 +27,33 @@ public class AddPeripheryAction implements Action {
     }
 
     @Override
-    public void execute(Long chatId, String serial_num) {
-        Matcher matcher = SERIAL_NUMBER_PATTERN.matcher(serial_num);
+    public void execute(Long chatId, String text) {
+        if (peripheryName == null) savePeripheryName(chatId, text);
+        else saveSerialNumber(chatId, text);
+    }
+
+    private void saveSerialNumber(Long chatId, String serialNumber) {
+        Matcher matcher = SERIAL_NUMBER_PATTERN.matcher(serialNumber);
         if (!matcher.find()) {
-            telegramService.sendMessage(chatId, "Введен неверный серийный номер");
+            sendAddPeripheryMessage(chatId, "Введен неверный серийный номер");
             return;
         }
 
         Periphery periphery = new Periphery();
-//      TODO:  periphery.setName();
-        periphery.setSerialNumber(serial_num);
+        periphery.setName(peripheryName);
+        periphery.setSerialNumber(serialNumber);
+        peripheryService.save(periphery);
+        peripheryName = null;
+
+        sendAddPeripheryMessage(chatId, "Периферия добавлена");
+    }
+
+    private void savePeripheryName(Long chatId, String name) {
+        peripheryName = name;
+        sendAddPeripheryMessage(chatId, "Введите серийный номер");
+    }
+
+    private void sendAddPeripheryMessage(Long chatId, String message) {
+        telegramService.sendMessage(chatId, message);
     }
 }
