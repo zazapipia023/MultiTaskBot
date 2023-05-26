@@ -5,20 +5,23 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.zaza.multitaskbot.actions.impl.AddPeripheryAction;
-import ru.zaza.multitaskbot.entities.User;
+import ru.zaza.multitaskbot.actions.impl.DeletePeripheryAction;
+import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.handlers.Handler;
-import ru.zaza.multitaskbot.services.UserService;
+import ru.zaza.multitaskbot.services.ClientService;
 
 @Component
 public class ActionHandler implements Handler {
 
-    private final UserService userService;
+    private final ClientService clientService;
     private final AddPeripheryAction addPeripheryAction;
+    private final DeletePeripheryAction deletePeripheryAction;
 
     @Autowired
-    public ActionHandler(UserService userService, AddPeripheryAction addPeripheryAction) {
-        this.userService = userService;
+    public ActionHandler(ClientService clientService, AddPeripheryAction addPeripheryAction, DeletePeripheryAction deletePeripheryAction) {
+        this.clientService = clientService;
         this.addPeripheryAction = addPeripheryAction;
+        this.deletePeripheryAction = deletePeripheryAction;
     }
 
     @Override
@@ -32,21 +35,15 @@ public class ActionHandler implements Handler {
         Long chatId = message.getChatId();
         String text = message.getText();
 
-        User user = userService.findOne(chatId);
-        String action = user != null ? user.getAction() : null;
+        Client client = clientService.findOne(chatId);
+        String action = client != null ? client.getAction() : null;
 
 
-        if ("add_periphery".equals(action)) {
+        if ("add_periphery".equals(action) || "add_periphery_name".equals(action)) {
             addPeripheryAction.execute(chatId, text);
-            user.setAction("none"); // TODO: if serial_num is not correct, should be add_periphery action
-            userService.save(user);
         }
-        if ("add_periphery_name".equals(action)) {
-            addPeripheryAction.execute(chatId, text);
-            user.setAction("add_periphery");
-            userService.save(user);
-        } else if ("delete_periphery".equals(action)) {
-            // TODO: deletePeripheryAction.execute(chatId, text);
+        if ("delete_periphery".equals(action)) {
+            deletePeripheryAction.execute(chatId, text);
         }
     }
 }

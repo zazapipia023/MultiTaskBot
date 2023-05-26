@@ -25,7 +25,11 @@ public final class ReplyMarkupsBuilder {
                 builder().text("Клавиатура TUF Gaming K3").build()
         )));
         keyboardBuilder.keyboardRow(new KeyboardRow(Arrays.asList(
-                builder().text("Клавиатура ROG Strix Flare").build()
+                builder().text("Клавиатура ROG Strix Flare").build(),
+                builder().text("Наушники TUF Gaming H3").build()
+        )));
+        keyboardBuilder.keyboardRow(new KeyboardRow(Arrays.asList(
+                builder().text("Наушники ROG Headset").build()
         )));
 
         return keyboardBuilder.build();

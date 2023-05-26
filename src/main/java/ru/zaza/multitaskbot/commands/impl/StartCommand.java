@@ -3,26 +3,26 @@ package ru.zaza.multitaskbot.commands.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
-import ru.zaza.multitaskbot.entities.User;
+import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.services.TelegramService;
-import ru.zaza.multitaskbot.services.UserService;
+import ru.zaza.multitaskbot.services.ClientService;
 
 @Component
 public class StartCommand implements Command<Long> {
 
     private final TelegramService telegramService;
-    private final UserService userService;
+    private final ClientService clientService;
 
     @Autowired
-    public StartCommand(TelegramService telegramService, UserService userService) {
+    public StartCommand(TelegramService telegramService, ClientService clientService) {
         this.telegramService = telegramService;
-        this.userService = userService;
+        this.clientService = clientService;
     }
 
     @Override
     public void execute(Long chatId) {
-        User user = userService.findOne(chatId);
-        if (user == null) saveUser(chatId);
+        Client client = clientService.findOne(chatId);
+        if (client == null) saveUser(chatId);
 
         sendStartMessage(chatId);
     }
@@ -34,9 +34,9 @@ public class StartCommand implements Command<Long> {
     }
 
     private void saveUser(Long chatId) {
-        User user = new User();
-        user.setId(chatId);
-        user.setAction("none");
-        userService.save(user);
+        Client client = new Client();
+        client.setId(chatId);
+        client.setAction("none");
+        clientService.save(client);
     }
 }

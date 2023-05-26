@@ -9,16 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "User")
+@Table(name = "Client")
 @Getter
 @Setter
-public class User {
+public class Client {
 
     @Id
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "action")
+    @Column(name = "bot_action")
     private String action;
 
 }
