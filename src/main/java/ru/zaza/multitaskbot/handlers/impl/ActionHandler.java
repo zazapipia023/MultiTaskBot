@@ -45,5 +45,11 @@ public class ActionHandler implements Handler {
         if ("delete_periphery".equals(action)) {
             deletePeripheryAction.execute(chatId, text);
         }
+        if ("add_to_repair_list".equals(action)) {
+            // TODO: add to repair list
+        }
+        if ("delete_from_repair_list".equals(action)) {
+            // TODO: remove from repair list
+        }
     }
 }

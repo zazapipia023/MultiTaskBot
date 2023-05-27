@@ -29,7 +29,7 @@ public class StartCommand implements Command<Long> {
 
     private void sendStartMessage(Long chatId) {
         String message = "/add_periphery - добавить перефирию на склад\n" +
-                "/remove_periphery - убрать периферию со склада\n";
+                "/delete_periphery - убрать периферию со склада\n";
         telegramService.sendMessage(chatId, message);
     }
 

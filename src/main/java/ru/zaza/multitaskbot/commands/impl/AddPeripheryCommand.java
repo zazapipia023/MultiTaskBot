@@ -26,14 +26,14 @@ public class AddPeripheryCommand implements Command<Long> {
         sendAddPeripheryMessage(chatId);
     }
 
+    private void sendAddPeripheryMessage(Long chatId) {
+        String message = "Какую периферию вы хотите добавить?";
+        telegramService.sendMessage(chatId, message, ReplyMarkupsBuilder.createPeripheryListKeyboard());
+    }
+
     private void setAction(Long chatId) {
         Client client = clientService.findOne(chatId);
         client.setAction("add_periphery_name");
         clientService.save(client);
-    }
-
-    private void sendAddPeripheryMessage(Long chatId) {
-        String message = "Какую периферию вы хотите добавить?";
-        telegramService.sendMessage(chatId, message, ReplyMarkupsBuilder.createPeripheryListKeyboard());
     }
 }

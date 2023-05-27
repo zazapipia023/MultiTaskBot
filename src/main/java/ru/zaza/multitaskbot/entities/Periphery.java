@@ -21,4 +21,7 @@ public class Periphery {
 
     @Column(name = "serial_number")
     private String serialNumber;
+
+    @Column(name = "is_repairing")
+    private Boolean isRepairing;
 }

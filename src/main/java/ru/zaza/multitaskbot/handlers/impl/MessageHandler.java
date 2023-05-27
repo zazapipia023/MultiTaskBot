@@ -6,8 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.commands.Commands;
-import ru.zaza.multitaskbot.commands.impl.AddPeripheryCommand;
-import ru.zaza.multitaskbot.commands.impl.StartCommand;
+import ru.zaza.multitaskbot.commands.impl.*;
 import ru.zaza.multitaskbot.handlers.Handler;
 
 import java.util.HashMap;
@@ -18,6 +17,9 @@ public class MessageHandler implements Handler {
 
     private final StartCommand startCommand;
     private final AddPeripheryCommand addPeripheryCommand;
+    private final DeletePeripheryCommand deletePeripheryCommand;
+    private final GetPeripheryCommand getPeripheryCommand;
+    private final GetRepPeripheryCommand getRepPeripheryCommand;
 
     private Map<String, Command<Long>> commands;
 
@@ -25,12 +27,18 @@ public class MessageHandler implements Handler {
         commands = new HashMap<>();
 
         commands.put(Commands.ADD_PERIPHERY_COMMAND, addPeripheryCommand);
+        commands.put(Commands.DELETE_PERIPHERY_COMMAND, deletePeripheryCommand);
+        commands.put(Commands.GET_PERIPHERY_COMMAND, getPeripheryCommand);
+        commands.put(Commands.GET_REP_PERIPHERY_COMMAND, getRepPeripheryCommand);
     }
 
     @Autowired
-    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand) {
+    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand, DeletePeripheryCommand deletePeripheryCommand, GetPeripheryCommand getPeripheryCommand, GetRepPeripheryCommand getRepPeripheryCommand) {
         this.startCommand = startCommand;
         this.addPeripheryCommand = addPeripheryCommand;
+        this.deletePeripheryCommand = deletePeripheryCommand;
+        this.getPeripheryCommand = getPeripheryCommand;
+        this.getRepPeripheryCommand = getRepPeripheryCommand;
         createCommandHandlers();
     }
 
