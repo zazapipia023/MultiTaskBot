@@ -1,7 +1,7 @@
-package ru.zaza.multitaskbot.services;
+package ru.zaza.multitaskbot.senders;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.DefaultAbsSender;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -10,13 +10,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.zaza.multitaskbot.config.BotConfig;
 
-@Service
-public class TelegramService extends DefaultAbsSender {
+@Component
+public class TelegramSender extends DefaultAbsSender {
 
     private final BotConfig botConfig;
 
     @Autowired
-    protected TelegramService(BotConfig botConfig) {
+    protected TelegramSender(BotConfig botConfig) {
         super(new DefaultBotOptions());
         this.botConfig = botConfig;
     }

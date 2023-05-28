@@ -5,19 +5,19 @@ import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.replymarkups.ReplyMarkupsBuilder;
-import ru.zaza.multitaskbot.services.TelegramService;
+import ru.zaza.multitaskbot.senders.TelegramSender;
 import ru.zaza.multitaskbot.services.ClientService;
 
 @Component
 public class AddPeripheryCommand implements Command<Long> {
 
     private final ClientService clientService;
-    private final TelegramService telegramService;
+    private final TelegramSender telegramSender;
 
     @Autowired
-    public AddPeripheryCommand(ClientService clientService, TelegramService telegramService) {
+    public AddPeripheryCommand(ClientService clientService, TelegramSender telegramSender) {
         this.clientService = clientService;
-        this.telegramService = telegramService;
+        this.telegramSender = telegramSender;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class AddPeripheryCommand implements Command<Long> {
 
     private void sendAddPeripheryMessage(Long chatId) {
         String message = "Какую периферию вы хотите добавить?";
-        telegramService.sendMessage(chatId, message, ReplyMarkupsBuilder.createPeripheryListKeyboard());
+        telegramSender.sendMessage(chatId, message, ReplyMarkupsBuilder.createPeripheryListKeyboard());
     }
 
     private void setAction(Long chatId) {

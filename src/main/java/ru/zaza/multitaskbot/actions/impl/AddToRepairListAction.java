@@ -7,19 +7,19 @@ import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.entities.Periphery;
 import ru.zaza.multitaskbot.services.ClientService;
 import ru.zaza.multitaskbot.services.PeripheryService;
-import ru.zaza.multitaskbot.services.TelegramService;
+import ru.zaza.multitaskbot.senders.TelegramSender;
 
 @Component
 public class AddToRepairListAction implements Action {
 
     private final ClientService clientService;
-    private final TelegramService telegramService;
+    private final TelegramSender telegramSender;
     private final PeripheryService peripheryService;
 
     @Autowired
-    public AddToRepairListAction(ClientService clientService, TelegramService telegramService, PeripheryService peripheryService) {
+    public AddToRepairListAction(ClientService clientService, TelegramSender telegramSender, PeripheryService peripheryService) {
         this.clientService = clientService;
-        this.telegramService = telegramService;
+        this.telegramSender = telegramSender;
         this.peripheryService = peripheryService;
     }
 
@@ -47,6 +47,6 @@ public class AddToRepairListAction implements Action {
     }
 
     private void sendAddToRepairListMessage(Long chatId, String message) {
-        telegramService.sendMessage(chatId, message);
+        telegramSender.sendMessage(chatId, message);
     }
 }

@@ -7,20 +7,20 @@ import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.entities.Periphery;
 import ru.zaza.multitaskbot.services.ClientService;
 import ru.zaza.multitaskbot.services.PeripheryService;
-import ru.zaza.multitaskbot.services.TelegramService;
+import ru.zaza.multitaskbot.senders.TelegramSender;
 
 @Component
 public class DeleteFromRepairListAction implements Action {
 
     private final ClientService clientService;
     private final PeripheryService peripheryService;
-    private final TelegramService telegramService;
+    private final TelegramSender telegramSender;
 
     @Autowired
-    public DeleteFromRepairListAction(ClientService clientService, PeripheryService peripheryService, TelegramService telegramService) {
+    public DeleteFromRepairListAction(ClientService clientService, PeripheryService peripheryService, TelegramSender telegramSender) {
         this.clientService = clientService;
         this.peripheryService = peripheryService;
-        this.telegramService = telegramService;
+        this.telegramSender = telegramSender;
     }
 
     @Override
@@ -48,6 +48,6 @@ public class DeleteFromRepairListAction implements Action {
     }
 
     private void sendDeleteFromRepairListMessage(Long chatId, String message) {
-        telegramService.sendMessage(chatId, message);
+        telegramSender.sendMessage(chatId, message);
     }
 }

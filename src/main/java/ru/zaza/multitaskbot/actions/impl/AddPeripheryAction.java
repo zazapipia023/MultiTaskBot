@@ -7,7 +7,7 @@ import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.entities.Periphery;
 import ru.zaza.multitaskbot.services.ClientService;
 import ru.zaza.multitaskbot.services.PeripheryService;
-import ru.zaza.multitaskbot.services.TelegramService;
+import ru.zaza.multitaskbot.senders.TelegramSender;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,17 +17,17 @@ public class AddPeripheryAction implements Action {
 
     private final PeripheryService peripheryService;
     private final ClientService clientService;
-    private final TelegramService telegramService;
+    private final TelegramSender telegramSender;
 
     private String peripheryName;
 
     private static final Pattern SERIAL_NUMBER_PATTERN = Pattern.compile("[a-zA-Z0-9]{12}");
 
     @Autowired
-    public AddPeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramService telegramService) {
+    public AddPeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramSender telegramSender) {
         this.peripheryService = peripheryService;
         this.clientService = clientService;
-        this.telegramService = telegramService;
+        this.telegramSender = telegramSender;
     }
 
     @Override
@@ -73,6 +73,6 @@ public class AddPeripheryAction implements Action {
     }
 
     private void sendAddPeripheryMessage(Long chatId, String message) {
-        telegramService.sendMessage(chatId, message);
+        telegramSender.sendMessage(chatId, message);
     }
 }

@@ -7,20 +7,20 @@ import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.entities.Periphery;
 import ru.zaza.multitaskbot.services.ClientService;
 import ru.zaza.multitaskbot.services.PeripheryService;
-import ru.zaza.multitaskbot.services.TelegramService;
+import ru.zaza.multitaskbot.senders.TelegramSender;
 
 @Component
 public class DeletePeripheryAction implements Action {
 
     private final PeripheryService peripheryService;
     private final ClientService clientService;
-    private final TelegramService telegramService;
+    private final TelegramSender telegramSender;
 
     @Autowired
-    public DeletePeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramService telegramService) {
+    public DeletePeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramSender telegramSender) {
         this.peripheryService = peripheryService;
         this.clientService = clientService;
-        this.telegramService = telegramService;
+        this.telegramSender = telegramSender;
     }
 
     @Override
@@ -45,6 +45,6 @@ public class DeletePeripheryAction implements Action {
     }
 
     private void sendDeletePeripheryMessage(Long chatId, String message) {
-        telegramService.sendMessage(chatId, message);
+        telegramSender.sendMessage(chatId, message);
     }
 }

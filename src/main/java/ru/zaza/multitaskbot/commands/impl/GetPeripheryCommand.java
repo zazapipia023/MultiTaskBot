@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.entities.Periphery;
 import ru.zaza.multitaskbot.services.PeripheryService;
-import ru.zaza.multitaskbot.services.TelegramService;
+import ru.zaza.multitaskbot.senders.TelegramSender;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import java.util.List;
 public class GetPeripheryCommand implements Command<Long> {
 
     private final PeripheryService peripheryService;
-    private final TelegramService telegramService;
+    private final TelegramSender telegramSender;
 
-    public GetPeripheryCommand(PeripheryService peripheryService, TelegramService telegramService) {
+    public GetPeripheryCommand(PeripheryService peripheryService, TelegramSender telegramSender) {
         this.peripheryService = peripheryService;
-        this.telegramService = telegramService;
+        this.telegramSender = telegramSender;
     }
 
     @Override
@@ -38,6 +38,6 @@ public class GetPeripheryCommand implements Command<Long> {
                 repairingPeriphery.append(per.getName()).append(" ").append(per.getSerialNumber()).append("\n");
         }
 
-        telegramService.sendMessage(chatId, String.valueOf(periphery.append("\n").append(repairingPeriphery)));
+        telegramSender.sendMessage(chatId, String.valueOf(periphery.append("\n").append(repairingPeriphery)));
     }
 }

@@ -4,17 +4,17 @@ import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.services.ClientService;
-import ru.zaza.multitaskbot.services.TelegramService;
+import ru.zaza.multitaskbot.senders.TelegramSender;
 
 @Component
 public class DeleteFromRepairListCommand implements Command<Long> {
 
     private final ClientService clientService;
-    private final TelegramService telegramService;
+    private final TelegramSender telegramSender;
 
-    public DeleteFromRepairListCommand(ClientService clientService, TelegramService telegramService) {
+    public DeleteFromRepairListCommand(ClientService clientService, TelegramSender telegramSender) {
         this.clientService = clientService;
-        this.telegramService = telegramService;
+        this.telegramSender = telegramSender;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class DeleteFromRepairListCommand implements Command<Long> {
 
     private void sendDeleteFromRepairListMessage(Long chatId) {
         String message = "Введите серийный номер";
-        telegramService.sendMessage(chatId, message);
+        telegramSender.sendMessage(chatId, message);
     }
 
     private void setAction(Long chatId) {
