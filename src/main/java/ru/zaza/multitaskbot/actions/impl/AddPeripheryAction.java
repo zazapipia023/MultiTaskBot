@@ -53,9 +53,7 @@ public class AddPeripheryAction implements Action {
         peripheryService.save(periphery);
         peripheryName = null;
 
-        Client client = clientService.findOne(chatId);
-        client.setAction("none");
-        clientService.save(client);
+        setAction(chatId);
 
         sendAddPeripheryMessage(chatId, "Периферия добавлена");
     }
@@ -65,6 +63,12 @@ public class AddPeripheryAction implements Action {
         sendAddPeripheryMessage(chatId, "Введите серийный номер");
         Client client = clientService.findOne(chatId);
         client.setAction("add_periphery");
+        clientService.save(client);
+    }
+
+    private void setAction(Long chatId) {
+        Client client = clientService.findOne(chatId);
+        client.setAction("none");
         clientService.save(client);
     }
 

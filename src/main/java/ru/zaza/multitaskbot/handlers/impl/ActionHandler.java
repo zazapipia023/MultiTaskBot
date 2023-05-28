@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.zaza.multitaskbot.actions.impl.AddPeripheryAction;
+import ru.zaza.multitaskbot.actions.impl.AddToRepairListAction;
+import ru.zaza.multitaskbot.actions.impl.DeleteFromRepairListAction;
 import ru.zaza.multitaskbot.actions.impl.DeletePeripheryAction;
 import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.handlers.Handler;
@@ -14,14 +16,20 @@ import ru.zaza.multitaskbot.services.ClientService;
 public class ActionHandler implements Handler {
 
     private final ClientService clientService;
-    private final AddPeripheryAction addPeripheryAction;
-    private final DeletePeripheryAction deletePeripheryAction;
+    private final AddPeripheryAction addPeriphery;
+    private final DeletePeripheryAction deletePeriphery;
+    private final AddToRepairListAction addRepairList;
+    private final DeleteFromRepairListAction deleteRepairList;
 
     @Autowired
-    public ActionHandler(ClientService clientService, AddPeripheryAction addPeripheryAction, DeletePeripheryAction deletePeripheryAction) {
+    public ActionHandler(ClientService clientService, AddPeripheryAction addPeriphery,
+                         DeletePeripheryAction deletePeriphery, AddToRepairListAction addRepairList,
+                         DeleteFromRepairListAction deleteRepairList) {
         this.clientService = clientService;
-        this.addPeripheryAction = addPeripheryAction;
-        this.deletePeripheryAction = deletePeripheryAction;
+        this.addPeriphery = addPeriphery;
+        this.deletePeriphery = deletePeriphery;
+        this.addRepairList = addRepairList;
+        this.deleteRepairList = deleteRepairList;
     }
 
     @Override
@@ -40,16 +48,16 @@ public class ActionHandler implements Handler {
 
 
         if ("add_periphery".equals(action) || "add_periphery_name".equals(action)) {
-            addPeripheryAction.execute(chatId, text);
+            addPeriphery.execute(chatId, text);
         }
         if ("delete_periphery".equals(action)) {
-            deletePeripheryAction.execute(chatId, text);
+            deletePeriphery.execute(chatId, text);
         }
         if ("add_to_repair_list".equals(action)) {
-            // TODO: add to repair list
+            addRepairList.execute(chatId, text);
         }
         if ("delete_from_repair_list".equals(action)) {
-            // TODO: remove from repair list
+            deleteRepairList.execute(chatId, text);
         }
     }
 }

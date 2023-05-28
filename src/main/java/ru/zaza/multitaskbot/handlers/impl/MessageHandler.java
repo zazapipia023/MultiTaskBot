@@ -19,7 +19,8 @@ public class MessageHandler implements Handler {
     private final AddPeripheryCommand addPeripheryCommand;
     private final DeletePeripheryCommand deletePeripheryCommand;
     private final GetPeripheryCommand getPeripheryCommand;
-    private final GetRepPeripheryCommand getRepPeripheryCommand;
+    private final AddToRepairListCommand addToRepairListCommand;
+    private final DeleteFromRepairListCommand deleteFromRepairListCommand;
 
     private Map<String, Command<Long>> commands;
 
@@ -29,16 +30,18 @@ public class MessageHandler implements Handler {
         commands.put(Commands.ADD_PERIPHERY_COMMAND, addPeripheryCommand);
         commands.put(Commands.DELETE_PERIPHERY_COMMAND, deletePeripheryCommand);
         commands.put(Commands.GET_PERIPHERY_COMMAND, getPeripheryCommand);
-        commands.put(Commands.GET_REP_PERIPHERY_COMMAND, getRepPeripheryCommand);
+        commands.put(Commands.ADD_TO_REPAIR_LIST_COMMAND, addToRepairListCommand);
+        commands.put(Commands.DELETE_FROM_REPAIR_LIST_COMMAND, deleteFromRepairListCommand);
     }
 
     @Autowired
-    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand, DeletePeripheryCommand deletePeripheryCommand, GetPeripheryCommand getPeripheryCommand, GetRepPeripheryCommand getRepPeripheryCommand) {
+    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand, DeletePeripheryCommand deletePeripheryCommand, GetPeripheryCommand getPeripheryCommand, AddToRepairListCommand addToRepairListCommand, DeleteFromRepairListCommand deleteFromRepairListCommand) {
         this.startCommand = startCommand;
         this.addPeripheryCommand = addPeripheryCommand;
         this.deletePeripheryCommand = deletePeripheryCommand;
         this.getPeripheryCommand = getPeripheryCommand;
-        this.getRepPeripheryCommand = getRepPeripheryCommand;
+        this.addToRepairListCommand = addToRepairListCommand;
+        this.deleteFromRepairListCommand = deleteFromRepairListCommand;
         createCommandHandlers();
     }
 

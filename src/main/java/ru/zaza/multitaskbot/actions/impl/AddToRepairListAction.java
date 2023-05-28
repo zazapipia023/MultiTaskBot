@@ -10,31 +10,33 @@ import ru.zaza.multitaskbot.services.PeripheryService;
 import ru.zaza.multitaskbot.services.TelegramService;
 
 @Component
-public class DeletePeripheryAction implements Action {
+public class AddToRepairListAction implements Action {
 
-    private final PeripheryService peripheryService;
     private final ClientService clientService;
     private final TelegramService telegramService;
+    private final PeripheryService peripheryService;
 
     @Autowired
-    public DeletePeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramService telegramService) {
-        this.peripheryService = peripheryService;
+    public AddToRepairListAction(ClientService clientService, TelegramService telegramService, PeripheryService peripheryService) {
         this.clientService = clientService;
         this.telegramService = telegramService;
+        this.peripheryService = peripheryService;
     }
 
     @Override
     public void execute(Long chatId, String text) {
-        deletePeriphery(chatId, text);
+        addToRepairList(chatId, text);
     }
 
-    private void deletePeriphery(Long chatId, String serialNumber) {
-        Periphery periphery = peripheryService.findBySerialNumber(serialNumber);
-        if (periphery == null) sendDeletePeripheryMessage(chatId, "Серийный номер не найден");
-        else {
-            peripheryService.delete(periphery);
+    private void addToRepairList(Long chatId, String text) {
+        Periphery periphery = peripheryService.findBySerialNumber(text);
+        if (periphery == null) {
+            sendAddToRepairListMessage(chatId, "Сначала добавьте периферию в список (/add_periphery)");
+        } else {
+            periphery.setIsRepairing(true);
+            peripheryService.save(periphery);
             setAction(chatId);
-            sendDeletePeripheryMessage(chatId, "Периферия удалена");
+            sendAddToRepairListMessage(chatId, "Периферия добавлена в список ремонтируемых");
         }
     }
 
@@ -44,7 +46,7 @@ public class DeletePeripheryAction implements Action {
         clientService.save(client);
     }
 
-    private void sendDeletePeripheryMessage(Long chatId, String message) {
+    private void sendAddToRepairListMessage(Long chatId, String message) {
         telegramService.sendMessage(chatId, message);
     }
 }

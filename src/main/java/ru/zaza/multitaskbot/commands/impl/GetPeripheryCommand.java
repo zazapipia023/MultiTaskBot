@@ -27,14 +27,17 @@ public class GetPeripheryCommand implements Command<Long> {
     private void sendGetPeripheryMessage(Long chatId) {
         List<Periphery> peripheryList = peripheryService.findAll();
 
-        StringBuilder sb = new StringBuilder().append("Список периферии на складе:\n");
+        StringBuilder periphery = new StringBuilder().append("Список периферии на складе:\n");
+        StringBuilder repairingPeriphery = new StringBuilder().append("Список периферии в ремонте:\n");
 
         for (Periphery per:
              peripheryList) {
             if (!per.getIsRepairing())
-                sb.append(per.getName()).append(" ").append(per.getSerialNumber()).append("\n");
+                periphery.append(per.getName()).append(" ").append(per.getSerialNumber()).append("\n");
+            else
+                repairingPeriphery.append(per.getName()).append(" ").append(per.getSerialNumber()).append("\n");
         }
 
-        telegramService.sendMessage(chatId, sb.toString());
+        telegramService.sendMessage(chatId, String.valueOf(periphery.append("\n").append(repairingPeriphery)));
     }
 }
