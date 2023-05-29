@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.zaza.multitaskbot.actions.impl.AddPeripheryAction;
-import ru.zaza.multitaskbot.actions.impl.AddToRepairListAction;
-import ru.zaza.multitaskbot.actions.impl.DeleteFromRepairListAction;
-import ru.zaza.multitaskbot.actions.impl.DeletePeripheryAction;
+import ru.zaza.multitaskbot.actions.impl.*;
 import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.handlers.Handler;
 import ru.zaza.multitaskbot.services.ClientService;
@@ -20,16 +17,21 @@ public class ActionHandler implements Handler {
     private final DeletePeripheryAction deletePeriphery;
     private final AddToRepairListAction addRepairList;
     private final DeleteFromRepairListAction deleteRepairList;
+    private final AddTaskAction addTaskAction;
+    private final DeleteTaskAction deleteTaskAction;
 
     @Autowired
     public ActionHandler(ClientService clientService, AddPeripheryAction addPeriphery,
                          DeletePeripheryAction deletePeriphery, AddToRepairListAction addRepairList,
-                         DeleteFromRepairListAction deleteRepairList) {
+                         DeleteFromRepairListAction deleteRepairList, AddTaskAction addTaskAction,
+                         DeleteTaskAction deleteTaskAction) {
         this.clientService = clientService;
         this.addPeriphery = addPeriphery;
         this.deletePeriphery = deletePeriphery;
         this.addRepairList = addRepairList;
         this.deleteRepairList = deleteRepairList;
+        this.addTaskAction = addTaskAction;
+        this.deleteTaskAction = deleteTaskAction;
     }
 
     @Override
@@ -58,6 +60,12 @@ public class ActionHandler implements Handler {
         }
         if ("delete_from_repair_list".equals(action)) {
             deleteRepairList.execute(chatId, text);
+        }
+        if ("add_task".equals(action)) {
+            addTaskAction.execute(chatId, text);
+        }
+        if ("delete_task".equals(action)) {
+            deleteTaskAction.execute(chatId, text);
         }
     }
 }

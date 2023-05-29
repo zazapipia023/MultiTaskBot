@@ -21,7 +21,7 @@ public class AddPeripheryAction implements Action {
 
     private String peripheryName;
 
-    private static final Pattern SERIAL_NUMBER_PATTERN = Pattern.compile("[a-zA-Z0-9]{12}");
+    private static final Pattern SERIAL_NUMBER_PATTERN = Pattern.compile("\\A[a-zA-Z0-9]{12}\\Z");
 
     @Autowired
     public AddPeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramSender telegramSender) {

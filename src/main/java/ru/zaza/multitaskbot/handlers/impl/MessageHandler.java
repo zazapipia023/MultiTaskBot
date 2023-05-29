@@ -21,6 +21,9 @@ public class MessageHandler implements Handler {
     private final GetPeripheryCommand getPeripheryCommand;
     private final AddToRepairListCommand addToRepairListCommand;
     private final DeleteFromRepairListCommand deleteFromRepairListCommand;
+    private final AddTaskCommand addTaskCommand;
+    private final GetTasksCommand getTasksCommand;
+    private final DeleteTaskCommand deleteTaskCommand;
 
     private Map<String, Command<Long>> commands;
 
@@ -32,16 +35,25 @@ public class MessageHandler implements Handler {
         commands.put(Commands.GET_PERIPHERY_COMMAND, getPeripheryCommand);
         commands.put(Commands.ADD_TO_REPAIR_LIST_COMMAND, addToRepairListCommand);
         commands.put(Commands.DELETE_FROM_REPAIR_LIST_COMMAND, deleteFromRepairListCommand);
+        commands.put(Commands.ADD_TASK_COMMAND, addTaskCommand);
+        commands.put(Commands.GET_TASKS_COMMAND, getTasksCommand);
+        commands.put(Commands.DELETE_TASK_COMMAND, deleteTaskCommand);
     }
 
     @Autowired
-    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand, DeletePeripheryCommand deletePeripheryCommand, GetPeripheryCommand getPeripheryCommand, AddToRepairListCommand addToRepairListCommand, DeleteFromRepairListCommand deleteFromRepairListCommand) {
+    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand, DeletePeripheryCommand deletePeripheryCommand,
+                          GetPeripheryCommand getPeripheryCommand, AddToRepairListCommand addToRepairListCommand,
+                          DeleteFromRepairListCommand deleteFromRepairListCommand, AddTaskCommand addTaskCommand,
+                          GetTasksCommand getTasksCommand, DeleteTaskCommand deleteTaskCommand) {
         this.startCommand = startCommand;
         this.addPeripheryCommand = addPeripheryCommand;
         this.deletePeripheryCommand = deletePeripheryCommand;
         this.getPeripheryCommand = getPeripheryCommand;
         this.addToRepairListCommand = addToRepairListCommand;
         this.deleteFromRepairListCommand = deleteFromRepairListCommand;
+        this.addTaskCommand = addTaskCommand;
+        this.getTasksCommand = getTasksCommand;
+        this.deleteTaskCommand = deleteTaskCommand;
         createCommandHandlers();
     }
 

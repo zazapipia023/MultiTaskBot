@@ -1,6 +1,8 @@
 package ru.zaza.multitaskbot.replymarkups;
 
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.Arrays;
@@ -15,6 +17,7 @@ public final class ReplyMarkupsBuilder {
         ReplyKeyboardMarkup.ReplyKeyboardMarkupBuilder keyboardBuilder = ReplyKeyboardMarkup.builder();
         keyboardBuilder.resizeKeyboard(true);
         keyboardBuilder.selective(true);
+        keyboardBuilder.oneTimeKeyboard(true);
 
         keyboardBuilder.keyboardRow(new KeyboardRow(Arrays.asList(
                 builder().text("Мышь TUF Gaming M3").build(),
@@ -35,4 +38,24 @@ public final class ReplyMarkupsBuilder {
         return keyboardBuilder.build();
     }
 
+    public static InlineKeyboardMarkup createGetTasksKeyboard() {
+        InlineKeyboardMarkup.InlineKeyboardMarkupBuilder inlineKeyboardMarkupBuilder = InlineKeyboardMarkup.builder();
+
+        inlineKeyboardMarkupBuilder.keyboardRow(Arrays.asList(
+                ReplyMarkupsBuilder.buildButton("Удалить одно задание", "delete_task")
+        ));
+        inlineKeyboardMarkupBuilder.keyboardRow(Arrays.asList(
+                ReplyMarkupsBuilder.buildButton("Удалить все задания", "delete_tasks")
+        ));
+
+        return inlineKeyboardMarkupBuilder.build();
+    }
+
+    public static InlineKeyboardButton buildButton(String text, String callbackData) {
+        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+        inlineKeyboardButton.setCallbackData(callbackData);
+        inlineKeyboardButton.setText(text);
+
+        return inlineKeyboardButton;
+    }
 }
