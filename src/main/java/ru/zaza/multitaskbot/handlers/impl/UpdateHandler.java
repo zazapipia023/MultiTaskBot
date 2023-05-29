@@ -14,20 +14,23 @@ public class UpdateHandler implements Handler {
 
     private final MessageHandler messageHandler;
     private final ActionHandler actionHandler;
+    private final CallbackHandler callbackHandler;
 
     private Set<Handler> getHandlers() {
         Set<Handler> result = new LinkedHashSet<>();
 
         result.add(messageHandler);
         result.add(actionHandler);
+        result.add(callbackHandler);
 
         return result;
     }
 
     @Autowired
-    public UpdateHandler(MessageHandler messageHandler, ActionHandler actionHandler) {
+    public UpdateHandler(MessageHandler messageHandler, ActionHandler actionHandler, CallbackHandler callbackHandler) {
         this.messageHandler = messageHandler;
         this.actionHandler = actionHandler;
+        this.callbackHandler = callbackHandler;
     }
 
     @Override

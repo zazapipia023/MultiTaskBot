@@ -38,4 +38,9 @@ public class TaskService {
     public void delete(Task task) {
         taskRepository.delete(task);
     }
+
+    @Transactional
+    public void deleteAll() {
+        taskRepository.deleteAll();
+    }
 }
