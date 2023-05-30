@@ -29,6 +29,7 @@ public class AddTaskAction implements Action {
         saveGivenTask(text);
         setAction(chatId);
         sendAddTaskMessage(chatId);
+        sendAddTaskMessageToReceiver();
     }
 
     private void saveGivenTask(String taskText) {
@@ -39,6 +40,12 @@ public class AddTaskAction implements Action {
 
     private void sendAddTaskMessage(Long chatId) {
         telegramSender.sendMessage(chatId, "Задание добавлено");
+    }
+
+    private void sendAddTaskMessageToReceiver() {
+        String message = "Добавлено новое задание!\n" +
+                "Напишите /get_tasks для просмотра";
+        telegramSender.sendMessageToTaskReceiver(message);
     }
 
     private void setAction(Long chatId) {
