@@ -40,6 +40,8 @@ public class AddToRepairListAction implements Action {
         }
     }
 
+    // TODO: Optional: Make method which sends notification to manager
+
     private void setAction(Long chatId) {
         Client client = clientService.findOne(chatId);
         client.setAction("none");

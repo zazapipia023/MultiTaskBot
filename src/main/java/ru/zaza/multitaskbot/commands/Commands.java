@@ -12,6 +12,7 @@ public final class Commands {
     public static final String ADD_TASK_COMMAND = "/add_task";
     public static final String GET_TASKS_COMMAND = "/get_tasks";
     public static final String DELETE_TASK_COMMAND = "/delete_task";
+    public static final String MAKE_REPORT_COMMAND = "/make_report";
 
     private Commands() {}
 

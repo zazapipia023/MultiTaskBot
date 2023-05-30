@@ -24,6 +24,7 @@ public class MessageHandler implements Handler {
     private final AddTaskCommand addTaskCommand;
     private final GetTasksCommand getTasksCommand;
     private final DeleteTaskCommand deleteTaskCommand;
+    private final MakeReportCommand makeReportCommand;
 
     private Map<String, Command<Long>> commands;
 
@@ -38,13 +39,14 @@ public class MessageHandler implements Handler {
         commands.put(Commands.ADD_TASK_COMMAND, addTaskCommand);
         commands.put(Commands.GET_TASKS_COMMAND, getTasksCommand);
         commands.put(Commands.DELETE_TASK_COMMAND, deleteTaskCommand);
+        commands.put(Commands.MAKE_REPORT_COMMAND, makeReportCommand);
     }
 
     @Autowired
     public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand, DeletePeripheryCommand deletePeripheryCommand,
                           GetPeripheryCommand getPeripheryCommand, AddToRepairListCommand addToRepairListCommand,
                           DeleteFromRepairListCommand deleteFromRepairListCommand, AddTaskCommand addTaskCommand,
-                          GetTasksCommand getTasksCommand, DeleteTaskCommand deleteTaskCommand) {
+                          GetTasksCommand getTasksCommand, DeleteTaskCommand deleteTaskCommand, MakeReportCommand makeReportCommand) {
         this.startCommand = startCommand;
         this.addPeripheryCommand = addPeripheryCommand;
         this.deletePeripheryCommand = deletePeripheryCommand;
@@ -54,6 +56,7 @@ public class MessageHandler implements Handler {
         this.addTaskCommand = addTaskCommand;
         this.getTasksCommand = getTasksCommand;
         this.deleteTaskCommand = deleteTaskCommand;
+        this.makeReportCommand = makeReportCommand;
         createCommandHandlers();
     }
 

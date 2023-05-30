@@ -19,12 +19,13 @@ public class ActionHandler implements Handler {
     private final DeleteFromRepairListAction deleteRepairList;
     private final AddTaskAction addTaskAction;
     private final DeleteTaskAction deleteTaskAction;
+    private final MakeReportAction makeReportAction;
 
     @Autowired
     public ActionHandler(ClientService clientService, AddPeripheryAction addPeriphery,
                          DeletePeripheryAction deletePeriphery, AddToRepairListAction addRepairList,
                          DeleteFromRepairListAction deleteRepairList, AddTaskAction addTaskAction,
-                         DeleteTaskAction deleteTaskAction) {
+                         DeleteTaskAction deleteTaskAction, MakeReportAction makeReportAction) {
         this.clientService = clientService;
         this.addPeriphery = addPeriphery;
         this.deletePeriphery = deletePeriphery;
@@ -32,6 +33,7 @@ public class ActionHandler implements Handler {
         this.deleteRepairList = deleteRepairList;
         this.addTaskAction = addTaskAction;
         this.deleteTaskAction = deleteTaskAction;
+        this.makeReportAction = makeReportAction;
     }
 
     @Override
@@ -48,7 +50,15 @@ public class ActionHandler implements Handler {
         Client client = clientService.findOne(chatId);
         String action = client != null ? client.getAction() : null;
 
-
+        if ("make_report".equals(action)) {
+            makeReportAction.execute(chatId, text);
+        }
+        if ("add_task".equals(action)) {
+            addTaskAction.execute(chatId, text);
+        }
+        if ("delete_task".equals(action)) {
+            deleteTaskAction.execute(chatId, text);
+        }
         if ("add_periphery".equals(action) || "add_periphery_name".equals(action)) {
             addPeriphery.execute(chatId, text);
         }
@@ -60,12 +70,6 @@ public class ActionHandler implements Handler {
         }
         if ("delete_from_repair_list".equals(action)) {
             deleteRepairList.execute(chatId, text);
-        }
-        if ("add_task".equals(action)) {
-            addTaskAction.execute(chatId, text);
-        }
-        if ("delete_task".equals(action)) {
-            deleteTaskAction.execute(chatId, text);
         }
     }
 }
