@@ -1,6 +1,5 @@
 package ru.zaza.multitaskbot.database;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -9,7 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import ru.zaza.multitaskbot.entities.Client;
 import ru.zaza.multitaskbot.repositories.ClientRepository;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -21,17 +20,29 @@ public class DatabaseTest {
 
     @Test
     public void testFindById() {
+        Client foundClient = clientRepository.findById(194242345L).get();
 
-        Optional<Client> foundClient = clientRepository.findById(194242345L);
-
-        Assertions.assertNotNull(foundClient.orElse(null));
-        Client client = foundClient.get();
-        Assertions.assertEquals("some_action", client.getAction());
-        client.setAction("another_action");
-        clientRepository.save(client);
-
-        foundClient = clientRepository.findById(194242345L);
-        Assertions.assertEquals("another_action", foundClient.get().getAction());
+        assertThat(foundClient.getId()).isEqualTo(194242345L);
+        assertThat(foundClient.getAction()).isEqualTo("some_action");
     }
 
+    @Test
+    public void testCreateClient() {
+        Client createdClient = new Client();
+        createdClient.setId(294532535L);
+        clientRepository.save(createdClient);
+
+        Client foundClient = clientRepository.findById(294532535L).get();
+        assertThat(foundClient.getId()).isEqualTo(createdClient.getId());
+    }
+
+    @Test
+    public void testUpdatedClient() {
+        Client clientToUpdate = clientRepository.findById(194242345L).get();
+        clientToUpdate.setAction("new_action");
+        clientRepository.save(clientToUpdate);
+
+        Client updatedClient = clientRepository.findById(194242345L).get();
+        assertThat(updatedClient.getAction()).isEqualTo("new_action");
+    }
 }
