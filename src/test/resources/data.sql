@@ -1,0 +1,1 @@
+INSERT INTO Client(id, bot_action) VALUES (194242345, 'some_action')
