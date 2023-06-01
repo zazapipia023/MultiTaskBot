@@ -33,10 +33,6 @@ public class PeripheryService {
         return peripheryRepository.findAll();
     }
 
-    public List<Periphery> findAllRepairingPeriphery() {
-        return peripheryRepository.findAllByIsRepairingIsTrue();
-    }
-
     @Transactional
     public void save(Periphery periphery) {
         peripheryRepository.save(periphery);
