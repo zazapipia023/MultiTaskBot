@@ -37,6 +37,8 @@ public class MakeReportAction implements Action {
     }
 
     private void sendReportToManagers(String report) {
+        report = "Отчёт за смену:\n\n" + report;
+
         for (Long managerId :
              managersList) {
             telegramSender.sendMessage(managerId, report);
