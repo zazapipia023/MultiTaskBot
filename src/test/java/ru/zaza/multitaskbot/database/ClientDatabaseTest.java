@@ -12,8 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("classpath:data.sql")
-public class DatabaseTest {
+@Sql("classpath:client_data.sql")
+public class ClientDatabaseTest {
 
     @Autowired
     ClientRepository clientRepository;
@@ -44,5 +44,14 @@ public class DatabaseTest {
 
         Client updatedClient = clientRepository.findById(194242345L).get();
         assertThat(updatedClient.getAction()).isEqualTo("new_action");
+    }
+
+    @Test
+    public void testDeleteClient() {
+        Client clientToDelete = clientRepository.findById(194242345L).get();
+        clientRepository.delete(clientToDelete);
+
+        Client foundClient = clientRepository.findById(194242345L).orElse(null);
+        assertThat(foundClient).isNull();
     }
 }
