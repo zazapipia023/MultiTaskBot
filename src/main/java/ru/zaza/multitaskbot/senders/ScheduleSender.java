@@ -24,6 +24,11 @@ public class ScheduleSender extends DefaultAbsSender {
         this.botConfig = botConfig;
     }
 
+    @Scheduled(cron = "0 0 0 * * *")
+    private void sendTurnOffMessage() {
+        sendMessage(taskReceiver, "Нужно выключить все ПК и ТВ");
+    }
+
     @Scheduled(cron = "0 0 8 * * *")
     private void sendFillFridgeMessage() {
         sendMessage(taskReceiver, "Нужно заполнить холодильник, и прислать фотографию в рабочий чат");

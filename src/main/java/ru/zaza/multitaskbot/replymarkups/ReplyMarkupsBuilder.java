@@ -43,10 +43,10 @@ public final class ReplyMarkupsBuilder {
         InlineKeyboardMarkup.InlineKeyboardMarkupBuilder inlineKeyboardMarkupBuilder = InlineKeyboardMarkup.builder();
 
         inlineKeyboardMarkupBuilder.keyboardRow(Arrays.asList(
-                ReplyMarkupsBuilder.buildButton("Удалить одно задание", "delete_task")
+                ReplyMarkupsBuilder.buildButton("Выполнить задание", "delete_task")
         ));
         inlineKeyboardMarkupBuilder.keyboardRow(Arrays.asList(
-                ReplyMarkupsBuilder.buildButton("Удалить все задания", "delete_tasks")
+                ReplyMarkupsBuilder.buildButton("Выполнить все задания", "delete_tasks")
         ));
 
         return inlineKeyboardMarkupBuilder.build();
