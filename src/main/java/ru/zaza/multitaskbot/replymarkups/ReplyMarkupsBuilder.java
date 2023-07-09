@@ -32,8 +32,7 @@ public final class ReplyMarkupsBuilder {
                 builder().text("Наушники TUF Gaming H3").build()
         )));
         keyboardBuilder.keyboardRow(new KeyboardRow(Arrays.asList(
-                builder().text("Наушники ROG Headset").build(),
-                builder().text("XBOX Gamepad").build()
+                builder().text("Наушники ROG Headset").build()
         )));
 
         return keyboardBuilder.build();

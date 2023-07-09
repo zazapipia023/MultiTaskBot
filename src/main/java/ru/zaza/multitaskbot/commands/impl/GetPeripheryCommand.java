@@ -33,9 +33,13 @@ public class GetPeripheryCommand implements Command<Long> {
         for (Periphery per:
              peripheryList) {
             if (!per.getIsRepairing())
-                periphery.append(per.getName()).append(" ").append(per.getSerialNumber()).append("\n");
+                periphery.append(per.getName())
+                        .append("\nS/N: ").append(per.getSerialNumber())
+                        .append("\nПримечание: ").append(per.getDescription()).append("\n");
             else
-                repairingPeriphery.append(per.getName()).append(" ").append(per.getSerialNumber()).append("\n");
+                repairingPeriphery.append(per.getName())
+                        .append("\nS/N: ").append(per.getSerialNumber())
+                        .append("\nПримечание: ").append(per.getDescription()).append("\n");
         }
 
         telegramSender.sendMessage(chatId, String.valueOf(periphery.append("\n").append(repairingPeriphery)));

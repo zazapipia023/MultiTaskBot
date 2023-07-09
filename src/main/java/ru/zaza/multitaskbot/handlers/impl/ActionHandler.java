@@ -68,6 +68,9 @@ public class ActionHandler implements Handler {
         if ("add_to_repair_list".equals(action)) {
             addRepairList.execute(chatId, text);
         }
+        if ("add_description".equals(action)) {
+            addRepairList.execute(chatId, text);
+        }
         if ("delete_from_repair_list".equals(action)) {
             deleteRepairList.execute(chatId, text);
         }

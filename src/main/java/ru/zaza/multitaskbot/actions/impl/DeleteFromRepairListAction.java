@@ -35,6 +35,7 @@ public class DeleteFromRepairListAction implements Action {
         }
         else {
             periphery.setIsRepairing(false);
+            periphery.setDescription("С ремонта");
             peripheryService.save(periphery);
             setAction(chatId);
             sendDeleteFromRepairListMessage(chatId, "Периферия убрана из ремонта");

@@ -50,6 +50,7 @@ public class AddPeripheryAction implements Action {
         periphery.setName(peripheryName);
         periphery.setSerialNumber(serialNumber);
         periphery.setIsRepairing(false);
+        periphery.setDescription("Новая");
         peripheryService.save(periphery);
         peripheryName = null;
 
