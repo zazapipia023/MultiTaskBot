@@ -51,6 +51,19 @@ public final class ReplyMarkupsBuilder {
         return inlineKeyboardMarkupBuilder.build();
     }
 
+    public static InlineKeyboardMarkup createGetPeripheryKeyboard() {
+        InlineKeyboardMarkup.InlineKeyboardMarkupBuilder inlineKeyboardMarkupBuilder = InlineKeyboardMarkup.builder();
+
+        inlineKeyboardMarkupBuilder.keyboardRow(Arrays.asList(
+                ReplyMarkupsBuilder.buildButton("Отдать в ремонт периферию", "send_periphery")
+        ));
+        inlineKeyboardMarkupBuilder.keyboardRow(Arrays.asList(
+                ReplyMarkupsBuilder.buildButton("Отдать всё в ремонт", "send_all_periphery")
+        ));
+
+        return inlineKeyboardMarkupBuilder.build();
+    }
+
     public static InlineKeyboardButton buildButton(String text, String callbackData) {
         InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
         inlineKeyboardButton.setCallbackData(callbackData);

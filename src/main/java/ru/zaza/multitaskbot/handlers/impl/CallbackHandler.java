@@ -51,5 +51,11 @@ public class CallbackHandler implements Handler {
         if (data.equals("delete_tasks")) {
             deleteTasksCommand.execute(chatId);
         }
+        if (data.equals("send_all_periphery")) {
+            // TODO:
+        }
+        if (data.equals("send_periphery")) {
+            // TODO:
+        }
     }
 }

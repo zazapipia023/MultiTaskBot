@@ -3,6 +3,7 @@ package ru.zaza.multitaskbot.commands.impl;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.entities.Periphery;
+import ru.zaza.multitaskbot.replymarkups.ReplyMarkupsBuilder;
 import ru.zaza.multitaskbot.services.PeripheryService;
 import ru.zaza.multitaskbot.senders.TelegramSender;
 
@@ -42,6 +43,8 @@ public class GetPeripheryCommand implements Command<Long> {
                         .append("\nПримечание: ").append(per.getDescription()).append("\n\n");
         }
 
-        telegramSender.sendMessage(chatId, String.valueOf(periphery.append("\n").append(repairingPeriphery)));
+        telegramSender.sendMessage(chatId,
+                String.valueOf(periphery.append("\n").append(repairingPeriphery)),
+                ReplyMarkupsBuilder.createGetPeripheryKeyboard());
     }
 }
