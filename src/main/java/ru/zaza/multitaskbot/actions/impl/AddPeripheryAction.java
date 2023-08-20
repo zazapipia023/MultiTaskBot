@@ -45,12 +45,16 @@ public class AddPeripheryAction implements Action {
             sendAddPeripheryMessage(chatId, "Введен неверный серийный номер");
             return;
         }
+        if (peripheryService.findBySerialNumber(serialNumber) != null) {
+            sendAddPeripheryMessage(chatId, "Периферия с таким серийным номером уже есть на складе");
+            return;
+        }
 
         Periphery periphery = new Periphery();
         periphery.setName(peripheryName);
         periphery.setSerialNumber(serialNumber);
         periphery.setIsRepairing(false);
-        periphery.setDescription("Новая");
+        periphery.setDescription("Отсутствует");
         peripheryService.save(periphery);
         peripheryName = null;
 
