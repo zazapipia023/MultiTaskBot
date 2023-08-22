@@ -2,11 +2,11 @@ package ru.zaza.multitaskbot.handlers.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.zaza.multitaskbot.commands.impl.DeleteTaskCommand;
 import ru.zaza.multitaskbot.commands.impl.DeleteTasksCommand;
+import ru.zaza.multitaskbot.commands.impl.SendAllPeripheryCommand;
 import ru.zaza.multitaskbot.handlers.Handler;
 import ru.zaza.multitaskbot.senders.TelegramSender;
 
@@ -15,12 +15,14 @@ public class CallbackHandler implements Handler {
 
     private final DeleteTaskCommand deleteTaskCommand;
     private final DeleteTasksCommand deleteTasksCommand;
+    private final SendAllPeripheryCommand sendAllPeripheryCommand;
     private final TelegramSender telegramSender;
 
     @Autowired
-    public CallbackHandler(DeleteTaskCommand deleteTaskCommand, DeleteTasksCommand deleteTasksCommand, TelegramSender telegramSender) {
+    public CallbackHandler(DeleteTaskCommand deleteTaskCommand, DeleteTasksCommand deleteTasksCommand, SendAllPeripheryCommand sendAllPeripheryCommand, TelegramSender telegramSender) {
         this.deleteTaskCommand = deleteTaskCommand;
         this.deleteTasksCommand = deleteTasksCommand;
+        this.sendAllPeripheryCommand = sendAllPeripheryCommand;
         this.telegramSender = telegramSender;
     }
 
@@ -52,7 +54,7 @@ public class CallbackHandler implements Handler {
             deleteTasksCommand.execute(chatId);
         }
         if (data.equals("send_all_periphery")) {
-            // TODO:
+            sendAllPeripheryCommand.execute(chatId);
         }
         if (data.equals("send_periphery")) {
             // TODO:

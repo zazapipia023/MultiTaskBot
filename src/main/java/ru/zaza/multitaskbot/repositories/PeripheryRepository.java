@@ -13,4 +13,5 @@ public interface PeripheryRepository extends JpaRepository<Periphery, Integer> {
 
     List<Periphery> findAllByIsRepairingIsTrue();
 
+    void deleteAllByIsRepairingTrue();
 }

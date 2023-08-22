@@ -31,8 +31,7 @@ public class GetPeripheryCommand implements Command<Long> {
         StringBuilder periphery = new StringBuilder().append("Список периферии на складе:\n\n");
         StringBuilder repairingPeriphery = new StringBuilder().append("Список периферии в ремонте:\n");
 
-        for (Periphery per:
-             peripheryList) {
+        for (Periphery per : peripheryList) {
             if (!per.getIsRepairing())
                 periphery.append(per.getName())
                         .append("\nS/N: ").append(per.getSerialNumber())
