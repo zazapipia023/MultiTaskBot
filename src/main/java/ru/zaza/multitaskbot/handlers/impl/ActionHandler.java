@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.handlers.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -10,6 +11,7 @@ import ru.zaza.multitaskbot.handlers.Handler;
 import ru.zaza.multitaskbot.services.ClientService;
 
 @Component
+@RequiredArgsConstructor
 public class ActionHandler implements Handler {
 
     private final ClientService clientService;
@@ -20,21 +22,6 @@ public class ActionHandler implements Handler {
     private final AddTaskAction addTaskAction;
     private final DeleteTaskAction deleteTaskAction;
     private final MakeReportAction makeReportAction;
-
-    @Autowired
-    public ActionHandler(ClientService clientService, AddPeripheryAction addPeriphery,
-                         DeletePeripheryAction deletePeriphery, AddToRepairListAction addRepairList,
-                         DeleteFromRepairListAction deleteRepairList, AddTaskAction addTaskAction,
-                         DeleteTaskAction deleteTaskAction, MakeReportAction makeReportAction) {
-        this.clientService = clientService;
-        this.addPeriphery = addPeriphery;
-        this.deletePeriphery = deletePeriphery;
-        this.addRepairList = addRepairList;
-        this.deleteRepairList = deleteRepairList;
-        this.addTaskAction = addTaskAction;
-        this.deleteTaskAction = deleteTaskAction;
-        this.makeReportAction = makeReportAction;
-    }
 
     @Override
     public boolean supports(Update update) {

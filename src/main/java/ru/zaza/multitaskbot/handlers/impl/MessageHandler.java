@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.handlers.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -9,10 +10,12 @@ import ru.zaza.multitaskbot.commands.Commands;
 import ru.zaza.multitaskbot.commands.impl.*;
 import ru.zaza.multitaskbot.handlers.Handler;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class MessageHandler implements Handler {
 
     private final StartCommand startCommand;
@@ -42,21 +45,8 @@ public class MessageHandler implements Handler {
         commands.put(Commands.MAKE_REPORT_COMMAND, makeReportCommand);
     }
 
-    @Autowired
-    public MessageHandler(StartCommand startCommand, AddPeripheryCommand addPeripheryCommand, DeletePeripheryCommand deletePeripheryCommand,
-                          GetPeripheryCommand getPeripheryCommand, AddToRepairListCommand addToRepairListCommand,
-                          DeleteFromRepairListCommand deleteFromRepairListCommand, AddTaskCommand addTaskCommand,
-                          GetTasksCommand getTasksCommand, DeleteTaskCommand deleteTaskCommand, MakeReportCommand makeReportCommand) {
-        this.startCommand = startCommand;
-        this.addPeripheryCommand = addPeripheryCommand;
-        this.deletePeripheryCommand = deletePeripheryCommand;
-        this.getPeripheryCommand = getPeripheryCommand;
-        this.addToRepairListCommand = addToRepairListCommand;
-        this.deleteFromRepairListCommand = deleteFromRepairListCommand;
-        this.addTaskCommand = addTaskCommand;
-        this.getTasksCommand = getTasksCommand;
-        this.deleteTaskCommand = deleteTaskCommand;
-        this.makeReportCommand = makeReportCommand;
+    @PostConstruct
+    public void initialize() {
         createCommandHandlers();
     }
 

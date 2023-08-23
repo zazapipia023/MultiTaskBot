@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.handlers.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -9,6 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class UpdateHandler implements Handler {
 
 
@@ -24,13 +26,6 @@ public class UpdateHandler implements Handler {
         result.add(callbackHandler);
 
         return result;
-    }
-
-    @Autowired
-    public UpdateHandler(MessageHandler messageHandler, ActionHandler actionHandler, CallbackHandler callbackHandler) {
-        this.messageHandler = messageHandler;
-        this.actionHandler = actionHandler;
-        this.callbackHandler = callbackHandler;
     }
 
     @Override

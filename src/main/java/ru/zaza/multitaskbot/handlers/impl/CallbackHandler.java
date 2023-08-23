@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.handlers.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -11,20 +12,13 @@ import ru.zaza.multitaskbot.handlers.Handler;
 import ru.zaza.multitaskbot.senders.TelegramSender;
 
 @Component
+@RequiredArgsConstructor
 public class CallbackHandler implements Handler {
 
     private final DeleteTaskCommand deleteTaskCommand;
     private final DeleteTasksCommand deleteTasksCommand;
     private final SendAllPeripheryCommand sendAllPeripheryCommand;
     private final TelegramSender telegramSender;
-
-    @Autowired
-    public CallbackHandler(DeleteTaskCommand deleteTaskCommand, DeleteTasksCommand deleteTasksCommand, SendAllPeripheryCommand sendAllPeripheryCommand, TelegramSender telegramSender) {
-        this.deleteTaskCommand = deleteTaskCommand;
-        this.deleteTasksCommand = deleteTasksCommand;
-        this.sendAllPeripheryCommand = sendAllPeripheryCommand;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public boolean supports(Update update) {
