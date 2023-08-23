@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.actions.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.actions.Action;
@@ -13,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
+@RequiredArgsConstructor
 public class AddPeripheryAction implements Action {
 
     private final PeripheryService peripheryService;
@@ -22,13 +24,6 @@ public class AddPeripheryAction implements Action {
     private String peripheryName;
 
     private static final Pattern SERIAL_NUMBER_PATTERN = Pattern.compile("\\A[a-zA-Z0-9]{12}\\Z");
-
-    @Autowired
-    public AddPeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramSender telegramSender) {
-        this.peripheryService = peripheryService;
-        this.clientService = clientService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId, String text) {

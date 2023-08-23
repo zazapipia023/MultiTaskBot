@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.commands.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.entities.Client;
@@ -7,15 +8,11 @@ import ru.zaza.multitaskbot.services.ClientService;
 import ru.zaza.multitaskbot.senders.TelegramSender;
 
 @Component
+@RequiredArgsConstructor
 public class AddToRepairListCommand implements Command<Long> {
 
     private final ClientService clientService;
     private final TelegramSender telegramSender;
-
-    public AddToRepairListCommand(ClientService clientService, TelegramSender telegramSender) {
-        this.clientService = clientService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId) {

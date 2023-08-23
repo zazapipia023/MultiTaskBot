@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.actions.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.actions.Action;
@@ -10,19 +11,13 @@ import ru.zaza.multitaskbot.services.ClientService;
 import ru.zaza.multitaskbot.services.TaskService;
 
 @Component
+@RequiredArgsConstructor
 public class AddTaskAction implements Action {
 
     private final TaskService taskService;
     private final ClientService clientService;
 
     private final TelegramSender telegramSender;
-
-    @Autowired
-    public AddTaskAction(TaskService taskService, ClientService clientService, TelegramSender telegramSender) {
-        this.taskService = taskService;
-        this.clientService = clientService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId, String text) {

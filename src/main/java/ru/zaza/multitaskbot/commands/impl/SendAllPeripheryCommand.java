@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.commands.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.entities.Periphery;
@@ -9,15 +10,11 @@ import ru.zaza.multitaskbot.services.PeripheryService;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class SendAllPeripheryCommand implements Command<Long> {
 
     private final PeripheryService peripheryService;
     private final TelegramSender telegramSender;
-
-    public SendAllPeripheryCommand(PeripheryService peripheryService, TelegramSender telegramSender) {
-        this.peripheryService = peripheryService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId) {

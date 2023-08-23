@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.commands.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
@@ -8,16 +9,11 @@ import ru.zaza.multitaskbot.senders.TelegramSender;
 import ru.zaza.multitaskbot.services.ClientService;
 
 @Component
+@RequiredArgsConstructor
 public class StartCommand implements Command<Long> {
 
     private final TelegramSender telegramSender;
     private final ClientService clientService;
-
-    @Autowired
-    public StartCommand(TelegramSender telegramSender, ClientService clientService) {
-        this.telegramSender = telegramSender;
-        this.clientService = clientService;
-    }
 
     @Override
     public void execute(Long chatId) {

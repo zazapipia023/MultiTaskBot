@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.commands.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
@@ -11,16 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class MakeReportCommand implements Command<Long> {
 
     private final ClientService clientService;
     private final TelegramSender telegramSender;
-
-    @Autowired
-    public MakeReportCommand(ClientService clientService, TelegramSender telegramSender) {
-        this.clientService = clientService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId) {

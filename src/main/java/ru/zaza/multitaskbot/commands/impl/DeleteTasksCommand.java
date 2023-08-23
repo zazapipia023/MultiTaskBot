@@ -1,20 +1,17 @@
 package ru.zaza.multitaskbot.commands.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.commands.Command;
 import ru.zaza.multitaskbot.senders.TelegramSender;
 import ru.zaza.multitaskbot.services.TaskService;
 
 @Component
+@RequiredArgsConstructor
 public class DeleteTasksCommand implements Command<Long> {
 
     private final TaskService taskService;
     private final TelegramSender telegramSender;
-
-    public DeleteTasksCommand(TaskService taskService, TelegramSender telegramSender) {
-        this.taskService = taskService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId) {

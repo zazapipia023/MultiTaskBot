@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.actions.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.actions.Action;
@@ -10,18 +11,12 @@ import ru.zaza.multitaskbot.services.PeripheryService;
 import ru.zaza.multitaskbot.senders.TelegramSender;
 
 @Component
+@RequiredArgsConstructor
 public class DeletePeripheryAction implements Action {
 
     private final PeripheryService peripheryService;
     private final ClientService clientService;
     private final TelegramSender telegramSender;
-
-    @Autowired
-    public DeletePeripheryAction(PeripheryService peripheryService, ClientService clientService, TelegramSender telegramSender) {
-        this.peripheryService = peripheryService;
-        this.clientService = clientService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId, String text) {

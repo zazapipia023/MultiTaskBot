@@ -1,5 +1,6 @@
 package ru.zaza.multitaskbot.actions.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.zaza.multitaskbot.actions.Action;
@@ -11,18 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class MakeReportAction implements Action {
 
     private final ClientService clientService;
     private final TelegramSender telegramSender;
 
     private final List<Long> managersList = Arrays.asList(995895596L, 974626403L, 1402868644L);
-
-    @Autowired
-    public MakeReportAction(ClientService clientService, TelegramSender telegramSender) {
-        this.clientService = clientService;
-        this.telegramSender = telegramSender;
-    }
 
     @Override
     public void execute(Long chatId, String text) {
